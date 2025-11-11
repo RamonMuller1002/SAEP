@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    
+
+    <form action="/login" method="post">
+      <h1>Entrar</h1>
+      <input
+        type="text"
+        name="cpf"
+        placeholder="CPF"
+        required
+      /><br /><br />
+      <input
+        type="password"
+        name="senha"
+        placeholder="senha"
+        required
+      /><br /><br />
+      <button>Entrar</button>
+    </form>
+
+
+
+    <div id="caixaMensagem" style="color: red"></div>
+
+    <script>
+      const parametros = new URLSearchParams(window.location.search);
+      let caixaMensagem = document.getElementById("caixaMensagem");
+      if (parametros.get("erro") == 1) {
+        caixaMensagem.innerHTML = "Usuário e/ou senha incorretos";
+      }
+    </script>
+  </body>
+</html>

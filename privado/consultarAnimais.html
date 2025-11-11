@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <form action="/cadastroAnimal" method="post">
+        <h1>Registrar animais</h1>
+        <label for="nome">nome</label>
+        <input type="text" name="nome" placeholder="nome" required /><br /><br />
+        <label for="especie">especie</label>
+        <input type="text" name="especie" placeholder="especie" required /><br /><br />
+        <label for="idade">idade</label>
+        <input type="text" name="idade" placeholder="idade" required /><br /><br />
+        <label for="id_tutor">id_tutor</label>
+        <input type="text" name="id_tutor" placeholder="id_tutor" required /><br /><br />
+        <button>Registrar</button>
+    </form>
+
+    <h1>Lista de animais</h1>
+    <div id="cxResultado"></div>
+
+
+
+    <style>
+        #cxResultado div {
+            border: 1px solid black;
+            margin: 10px;
+            padding: 10px;
+            background-color: aquamarine;
+        }
+    </style>
+    <script>
+
+        let cxResultado = document.getElementById('cxResultado')
+        fetch('/animais')
+            .then(res => res.json())
+            .then(dados => {
+                dados.forEach(item => {
+                    function deletarAnimal(id) {
+                        fetch(`/deleteAnimal`, { method: 'DELETE' })
+                            .then(res => res.json())
+                            .then(dados => {
+                                alert('Animal deletado');
+                                location.reload();
+                            })
+                            .catch(err => console.error(err))
+                    }
+                    cxResultado.innerHTML += `
+                      <div>
+                            <h2>Nome do animal: ${item.nome}</h2>
+                            <p>especie do animal: ${item.especie}</p>
+                            <p>idade do animal: ${item.idade}</p>
+                            <button id="deletar" name="${item.id}">Deletar animal</button>
+                        </div>
+                `
+                })
+            })
+
+
+
+
+    </script>
+</body>
+
+</html>
